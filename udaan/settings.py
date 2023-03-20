@@ -110,6 +110,7 @@ POSTGRES_PASSWORD= os.environ.get("POSTGRES_PASSWORD")
 POSTGRES_PORT= os.environ.get("POSTGRES_PORT")
 
 POSTGRES_READY = (
+   environment:
     POSTGRES_DB is not None
     and POSTGRES_PASSWORD is not None
     and POSTGRES_USERNAME is not None
@@ -120,6 +121,7 @@ POSTGRES_READY = (
 if POSTGRES_READY:
     DATABASES = {
         "default": {
+           environment:
             "ENGINE": "django.db.backends.postgresql",
             "NAME": POSTGRES_DB,
             "USER": POSTGRES_USERNAME,
