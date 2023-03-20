@@ -1,5 +1,6 @@
 asgiref==3.4.1
 backports.zoneinfo==0.2.1;python_version<"3.9"
+chardet>=3.0.2,<5
 certifi==2022.12.7
 cloudinary==1.32.0
 dj-database-url==1.2.0
