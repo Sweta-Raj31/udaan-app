@@ -112,10 +112,10 @@ POSTGRES_PORT= os.environ.get("POSTGRES_PORT")
 POSTGRES_READY = (
    environment:
     POSTGRES_DB is not None
-    and POSTGRES_PASSWORD is not None
-    and POSTGRES_USERNAME is not None
-    and POSTGRES_HOST is not None
-    and POSTGRES_PORT is not None
+    POSTGRES_PASSWORD is not None
+    POSTGRES_USERNAME is not None
+    POSTGRES_HOST is not None
+    POSTGRES_PORT is not None
 )
 
 if POSTGRES_READY:
