@@ -87,22 +87,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'udaan.wsgi.application'
-
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-
-
-
-    
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 POSTGRES_DB= os.environ.get("POSTGRES_DB")
 POSTGRES_HOST= os.environ.get("POSTGRES_HOST")
 POSTGRES_USERNAME= os.environ.get("POSTGRES_USERNAME")
@@ -130,6 +119,33 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
+
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
+
+
+
+
+    
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+'''
 
 
 
